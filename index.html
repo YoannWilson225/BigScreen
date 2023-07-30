@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Sondage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #111;
+        }
+
+        svg {
+            width: 15rem;
+            padding-top: 3rem;
+        }
+
+        input.form-control {
+        border: 2.5px dashed #111;
+        height: 60px;
+    }
+
+    select.form-control {
+        border: 2.5px dashed #111;
+        height: 60px;
+    }
+
+    #copyLinkMessage {
+    position: absolute;
+    top: -50px;
+    text-align: center;
+    height: 30px;
+    width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #202528;
+    box-shadow: 0 2rem 3rem #0C0032;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 20px;
+    z-index: 9999;
+    transition: opacity 1s, transform 1s; /* Augmenter la durée de l'animation à 1 seconde */
+    opacity: 0; /* Masquer le message par défaut */
+}
+
+#invalidEmailMessage  {
+    position: absolute;
+    top: -50px;
+    text-align: center;
+    height: 30px;
+    width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: red;
+    box-shadow: 0 2rem 3rem white;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 20px;
+    z-index: 9999;
+    transition: opacity 1s, transform 1s; /* Augmenter la durée de l'animation à 1 seconde */
+    opacity: 0; /* Masquer le message par défaut */
+}
+
+
+@media screen and (max-width: 768px) {
+    #copyLinkMessage {
+    height: 30px;
+    width: 445px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2rem 3rem #0C0032;
+    font-size: 13px;
+    transition: opacity 1s, transform 1s; /* Augmenter la durée de l'animation à 1 seconde */
+    opacity: 0; /* Masquer le message par défaut */
+}
+
+#invalidEmailMessage  {
+    height: 30px;
+    width: 445px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2rem 3rem white;
+    font-size: 13px;
+    transition: opacity 1s, transform 1s; /* Augmenter la durée de l'animation à 1 seconde */
+    opacity: 0; /* Masquer le message par défaut */
+}
+
+
+#invalidEmailMessage  p {
+    padding-top: 5px;
+}
+
+#copyLinkMessage p {
+    padding-top: 5px;
+}
+
+}
+    </style>
+
+</head>
+
+<body>
+    <!-- div pour afficher le message de copie du lien -->
+    <div id="copyLinkMessage">
+      <p>Lien bien copié ! Sauvegardez-le pour consulter vos réponses plus tard.</p>
+    </div>
+    <div id="invalidEmailMessage" class="invalid-email-message">
+        <p>Email invalide ! Veuillez saisir un bon email</p>
+      </div>
+      <nav class="navbar bg-body-tertiary">
+        <div class="container">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 56"><defs><style>.cls-1{fill: #fff;}</style></defs><title>bigscreen</title><rect class="cls-1" x="48" y="8" width="8" height="40"/><path class="cls-1" d="M8,8V0H0V48H40V8H8ZM32,40H8V16H32Z"/><path class="cls-1" d="M72,8H64V40H96v8H72v8h32V8H72ZM96,32H72V16H96Z"/><polygon class="cls-1" points="119 8 112 8 112 32 113 32 120 32 144 32 144 40 112 40 112 48 144 48 152 48 152 40 152 32 152 24 144 24 120 24 120 16 152 16 152 8 120 8 119 8"/><polygon class="cls-1" points="160 8 160 16 160 48 163 48 168 48 200 48 200 40 168 40 168 16 200 16 200 8 168 8 160 8"/><polygon class="cls-1" points="212 8 208 8 208 48 216 48 216 16 248 16 248 8 216 8 212 8"/><path class="cls-1" d="M264,8h-8V48h40V40H264V32h32V8H264Zm25,16H264V16h25Z"/><path class="cls-1" d="M312,8h-8V48h40V40H312V32h32V8H312Zm24,16H312V16h24Z"/><polygon class="cls-1" points="384 8 360 8 352 8 352 16 352 48 360 48 360 16 384 16 384 48 392 48 392 16 392 8 384 8"/></svg>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="text-white">Formulaire de Sondage</h2><br>
+        <div class="alert alert-secondary" role="alert">
+            Merci de répondre à toutes les questions et de valider le formulaire en bas de page
+          </div>
+        <form id="surveyForm">
+            <div id="questionsContainer" class="row">
+                <!-- les questions seront affichées ici  -->
+            </div>
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </form>
+    </div>
+
+ <!-- La modal pour afficher le message de remerciement et l'URL unique -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" role="dialog" aria-labelledby="thankYouModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-black">
+                <h5 class="modal-title" id="thankYouModalLabel">Merci pour votre participation !</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-black">
+                Toute l'équipe de Bigscreen vous remercie pour votre engagement. Grâce à votre investissement,
+                nous vous préparons une application toujours plus facile à utiliser, seul ou en famille. Vous
+                pouvez consulter vos réponses ultérieurement en utilisant le lien unique ci-dessous :
+                <a href="#" id="resultLink" target="_blank">Consulter mes réponses</a>
+            </div>
+            <div class="modal-footer">
+                <!-- Ajouter un bouton "Annuler" avec un ID pour le cibler avec JavaScript -->
+                <p class="text-success">Le lien sera copié automatique après ce message fermer! Mais n'hésitez pas à le copier</p>
+                <input type="text" class="form-control" id="resultLinkInput" readonly>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancelButton">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script src="Js/survey.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
