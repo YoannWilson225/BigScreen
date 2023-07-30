@@ -239,6 +239,6 @@ function generateUniqueUrl(visitorId) {
     // Utilisez le timestamp actuel comme base pour l'URL unique
     const timestamp = Date.now();
     // Concaténez le timestamp et l'identifiant unique du visiteur pour former l'URL unique
-    const uniqueUrl = `http://localhost/bigscreen_survey/BigScreen_front/reponse?timestamp=${timestamp}&visitor_id=${visitorId}`;
+    const uniqueUrl = `https://yoannwilson225.github.io/BigScreen/reponse?timestamp=${timestamp}&visitor_id=${visitorId}`;
     return uniqueUrl;
 }
