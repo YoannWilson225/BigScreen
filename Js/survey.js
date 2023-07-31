@@ -242,3 +242,4 @@ function generateUniqueUrl(visitorId) {
     const uniqueUrl = `https://yoannwilson225.github.io/BigScreen/reponse?timestamp=${timestamp}&visitor_id=${visitorId}`;
     return uniqueUrl;
 }
+
